@@ -1,5 +1,5 @@
-import { Dispatch } from "react";
-import { Product } from "../../../../context/ShoppingCart/ShoppingCartContext";
+import { Dispatch } from 'react';
+import { Product } from '../../../../context/ShoppingCart/ShoppingCartContext';
 
 type ButtonsProps = {
   removeProduct?:
@@ -13,7 +13,10 @@ type ButtonsProps = {
   productId?: number;
 };
 
-export function Buttons({ removeProduct, productId }: ButtonsProps) {
+export function Buttons({
+  removeProduct,
+  productId,
+}: ButtonsProps): JSX.Element {
   const handleRemoveProduct = () => {
     if (!removeProduct || !productId) return;
 
@@ -38,7 +41,11 @@ export function Buttons({ removeProduct, productId }: ButtonsProps) {
         const updatedProducts = prevState.products.filter(
           (product) => product.product.id !== productId
         );
-        return { ...prevState, products: updatedProducts, quantity: prevState.quantity - 1 };
+        return {
+          ...prevState,
+          products: updatedProducts,
+          quantity: prevState.quantity - 1,
+        };
       }
     });
   };

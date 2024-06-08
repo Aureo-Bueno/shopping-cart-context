@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 import {
   Product,
   ShoppingCartContext,
-} from "../context/ShoppingCart/ShoppingCartContext";
-import { Root } from "../services/queries/useGetProducts";
+} from '../context/ShoppingCart/ShoppingCartContext';
+import { Root } from '../services/queries/useGetProducts';
 
 export const useCart = () => {
   const { cart, addToCart } = useContext(ShoppingCartContext);

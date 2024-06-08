@@ -4,8 +4,8 @@ import {
   SetStateAction,
   createContext,
   useState,
-} from "react";
-import { Root, useGetProducts } from "../../services/queries/useGetProducts";
+} from 'react';
+import { Root, useGetProducts } from '../../services/queries/useGetProducts';
 
 export type Product = {
   product: Root;
@@ -39,11 +39,11 @@ export const ShoppingCartContext = createContext<ShoppingCartContextType>({
       {
         product: {
           id: 0,
-          title: "",
+          title: '',
           price: 0,
-          description: "",
-          category: "",
-          image: "",
+          description: '',
+          category: '',
+          image: '',
           rating: {
             rate: 0,
             count: 0,
@@ -61,7 +61,9 @@ type ShoppingCartProviderProps = {
   children: ReactNode;
 };
 
-export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+export function ShoppingCartProvider({
+  children,
+}: ShoppingCartProviderProps): JSX.Element {
   const [cart, setCart] = useState<{
     products: Array<Product>;
     quantity: number;
@@ -71,7 +73,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   });
   const { data } = useGetProducts();
 
-  console.log(cart);
   return (
     <ShoppingCartContext.Provider
       value={{

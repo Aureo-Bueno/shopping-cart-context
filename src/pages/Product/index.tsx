@@ -1,32 +1,20 @@
-import { useContext } from "react";
-import {
-  ShoppingCartContext,
-} from "../../context/ShoppingCart/ShoppingCartContext";
-import { Cart } from "../Cart";
-import { useCart } from "../../hooks/useCart";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useGetProductById } from '../../services/queries/useGetProductById';
 
-export function Products() {
-  const { products } = useContext(ShoppingCartContext);
-  const { handleAddProduct } = useCart();
-  
+export function Product(): JSX.Element {
+  const { id } = useParams();
+  const { data, isLoading } = useGetProductById({ productId: Number(id) });
+  const navigate = useNavigate();
+
   return (
     <div>
-      <h1>Product</h1>
-      <ul>
-        {products?.map((product) => (
-          <li key={product.id}>
-            <h2>{product.title}</h2>
-            <p>{product.description}</p>
-            <p>{product.price}</p>
-            <button onClick={() => handleAddProduct(product)}>
-              Add to cart
-            </button>
-          </li>
-        ))}
-      </ul>
-      <br />
-      <h2>Cart</h2>
-      <Cart />
+      <h1>Product {id}</h1>
+      {isLoading && <p>Loading...</p>}
+      <h2>{data?.title}</h2>
+      <p>{data?.description}</p>
+      <p>{data?.price}</p>
+      <p>{data?.category}</p>
+      <button onClick={() => navigate('/')}>Go back</button>
     </div>
   );
 }

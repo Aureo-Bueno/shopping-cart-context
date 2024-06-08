@@ -1,5 +1,5 @@
-import { UseQueryResult, useQuery } from "@tanstack/react-query";
-import { api } from "..";
+import { UseQueryResult, useQuery } from '@tanstack/react-query';
+import { api } from '..';
 
 export interface Root {
   id: number;
@@ -18,9 +18,9 @@ export interface Rating {
 
 export const useGetProducts = (): UseQueryResult<Array<Root>, Error> => {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: ['products'],
     queryFn: async () => {
-      const { data } = await api.get("/products");
+      const { data } = await api.get('/products');
       return data;
     },
   });
