@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { ShoppingCartContext } from '../../context/ShoppingCart/ShoppingCartContext';
 import { useCart } from '../../hooks/useCart';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
 
 export function Products(): JSX.Element {
   const { products } = useContext(ShoppingCartContext);
@@ -11,6 +12,7 @@ export function Products(): JSX.Element {
 
   return (
     <div>
+      <Navbar />
       <h1>Product</h1>
       <button onClick={() => navigate('/cart')}>Go to Cart</button>
       <ul>
