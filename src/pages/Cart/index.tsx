@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { Fragment, useContext } from 'react';
 import { ShoppingCartContext } from '../../context/ShoppingCart/ShoppingCartContext';
 import { Buttons } from './components/Buttons';
 import {
@@ -7,6 +7,19 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { useGetCartByUserId } from '../../services/queries/useGetCartByUserId';
+import {
+  Container,
+  Title,
+  NavigationButton,
+  UserInfo,
+  CartMessage,
+  ProductList,
+  ProductItem,
+  ProductTitle,
+  ProductDescription,
+  ProductPrice,
+  ProductQuantity,
+} from './styles';
 
 export function Cart(): JSX.Element {
   const { removeFromCart, cart } = useContext(ShoppingCartContext);
@@ -17,35 +30,40 @@ export function Cart(): JSX.Element {
   const navigate: NavigateFunction = useNavigate();
 
   return (
-    <div>
-      <h1>Actions to Remove Products</h1>
-      <button onClick={() => navigate('/')}>Go to Products</button>
+    <Container>
+      <Title>Actions to Remove Products</Title>
+      <NavigationButton onClick={() => navigate('/')}>
+        Go to Products
+      </NavigationButton>
       {userId && (
-        <>
+        <UserInfo>
           <p>UserId: {userId}</p>
           <p>Quantity: {data?.date}</p>
-        </>
+        </UserInfo>
       )}
-
       {cart.quantity === 0 && cart.products.length === 0 ? (
-        <p>Cart is empty</p>
+        <CartMessage>Cart is empty</CartMessage>
       ) : (
         <>
           <p>Items cart</p>
-          {cart.products.map((product) => (
-            <div key={product.product.id}>
-              <h2>{product.product.title}</h2>
-              <p>{product.product.description}</p>
-              <p>{product.product.price}</p>
-              <p>{product.quantity}</p>
-              <Buttons
-                removeProduct={removeFromCart}
-                productId={product.product.id}
-              />
-            </div>
-          ))}
+          <ProductList>
+            {cart.products.map((product) => (
+              <ProductItem key={product.product.id}>
+                <ProductTitle>{product.product.title}</ProductTitle>
+                <ProductDescription>
+                  {product.product.description}
+                </ProductDescription>
+                <ProductPrice>${product.product.price}</ProductPrice>
+                <ProductQuantity>Quantity: {product.quantity}</ProductQuantity>
+                <Buttons
+                  removeProduct={removeFromCart}
+                  productId={product.product.id}
+                />
+              </ProductItem>
+            ))}
+          </ProductList>
         </>
       )}
-    </div>
+    </Container>
   );
 }

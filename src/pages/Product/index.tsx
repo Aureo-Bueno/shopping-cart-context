@@ -13,7 +13,6 @@ function Product({params, location, navigate }:ProductProps ): JSX.Element {
     location,
     navigate
   });
-
   return (
     <div>
       <h1>Product {id}</h1>
